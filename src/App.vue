@@ -2,9 +2,8 @@
 
 <template>
   <div id="app">
-    <pokemon-list :allPokemon="allPokemon">
-
-    </pokemon-list>
+    <pokemon-detail :pokemon="selectedPokemon"></pokemon-detail>
+    <pokemon-list :allPokemon="allPokemon"></pokemon-list>
   </div>
 </template>
 
@@ -12,6 +11,7 @@
 // JS goes here..
 
 <script>
+import PokemonDetail from './components/PokemonDetail.vue';
 import PokemonList from './components/PokemonList.vue';
 import { eventBus } from './main';
 
@@ -25,7 +25,16 @@ export default {
   },
 
   components: {
+    "pokemon-detail": PokemonDetail,
     "pokemon-list": PokemonList,
+  },
+
+  methods: {
+    fetchSinglePokemon: function(url){
+      return fetch(this.selectedPokemon.url)
+      .then(res => res.json())
+      .then(data => this.selectedPokemon = data)
+    }
   },
 
   mounted(){
@@ -34,7 +43,7 @@ export default {
     .then(data => (this.allPokemon = data.results));
 
     eventBus.$on('pokemon-selected', (pokemon) => {
-      this.selectedPokemon = pokemon;
+      this.fetchSinglePokemon(pokemon.url);
     })
   },
 };
