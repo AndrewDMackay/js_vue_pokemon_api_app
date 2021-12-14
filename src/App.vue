@@ -2,7 +2,7 @@
 
 <template>
   <div id="app">
-    <pokemon-detail :pokemon="selectedPokemon"></pokemon-detail>
+    <pokemon-detail v-if="selectedPokemon" :pokemon="selectedPokemon"></pokemon-detail>
     <pokemon-list :allPokemon="allPokemon"></pokemon-list>
   </div>
 </template>
@@ -31,9 +31,9 @@ export default {
 
   methods: {
     fetchSinglePokemon: function(url){
-      return fetch(this.selectedPokemon.url)
-      .then(res => res.json())
-      .then(data => this.selectedPokemon = data)
+      return fetch(url)
+      .then((res) => (res.json()))
+      .then((data) => (this.selectedPokemon = data))
     }
   },
 
