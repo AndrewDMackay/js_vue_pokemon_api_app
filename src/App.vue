@@ -2,7 +2,9 @@
 
 <template>
   <div id="app">
-    <pokemon-list allPokemon="Hello.."></pokemon-list>
+    <pokemon-list :allPokemon="allPokemon">
+      
+    </pokemon-list>
   </div>
 </template>
 
@@ -21,7 +23,12 @@ export default {
   },
   components: {
     "pokemon-list": PokemonList,
-  }
+  },
+  mounted(){
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=151%27')
+    .then(res => res.json())
+    .then(data => (this.allPokemon = data.results));
+  },
 };
 
 </script>
