@@ -1,31 +1,33 @@
+// Html goes here..
+
 <template>
   <div id="app">
-    <ul>
-      <li v-for="( item, index ) in items" :key="index">{{ item.name }}</li>
-    </ul>
+    <pokemon-list allPokemon="Hello.."></pokemon-list>
   </div>
 </template>
 
 
+// JS goes here..
 
 <script>
+import PokemonList from './components/PokemonList.vue';
 
 export default {
   name: 'App',
   data(){
-    return {
-      items: [ 
-        {name: "Milk", isPurchased: false},
-        {name: "Cheese", isPurchased: true},
-        {name: "Beans", isPurchased: false},
-      ],
-    };
+    return{
+        allPokemon: [],
+    }
   },
+  components: {
+    "pokemon-list": PokemonList,
+  }
 };
 
 </script>
 
 
+// Styling goes here..
 
 <style>
 #app {
@@ -37,3 +39,6 @@ export default {
   margin-top: 60px;
 }
 </style>
+
+
+
